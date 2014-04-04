@@ -1,0 +1,10 @@
+<script src="http://25.145.68.192:85/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://25.145.68.192:85');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+</script>
+
+<p> Socom is dumb </p>
