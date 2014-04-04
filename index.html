@@ -1,10 +1,17 @@
-<script src="http://25.145.68.192:85/socket.io/socket.io.js"></script>
-<script>
-  var socket = io.connect('http://25.145.68.192:85');
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-  });
-</script>
+<html>
+<head>
+	<title>Roller</title>
 
-<p> Socom is dumb </p>
+	<script src="http://25.145.68.192:85/socket.io/socket.io.js"></script>
+	<script src='js/jquery-2.0.3.js'></script>
+	<script src='js/main.js'></script>
+</head>
+<body>
+	<span>Enter your username, bitch:</span>
+	<input type="text" id="username">
+	<button onclick='setUsername()'>Set Username</button>
+	<button onclick='sendPressEvent()'>Button?</button>
+	<div id='messagecontainer'>
+	</div>
+</body>
+</html>
