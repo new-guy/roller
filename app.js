@@ -27,9 +27,22 @@ io.sockets.on('connection', function (socket)
 
   socket.on('roll_request', function (data)
   {
-    var roll_amount = getRandomInt(1, 6);
+    var detail_string = "(";
+    var roll_amount = 0;
 
-    io.sockets.emit('dice_roll', {user: data.username, value: roll_amount});
+    for(var c = 0; c < data.multiplier; c++)
+    {
+      var current_roll = getRandomInt(1, data.faces);
+      roll_amount += current_roll;
+      if(c != 0) detail_string += " + " + current_roll;
+      else detail_string += current_roll;
+    }
+
+    detail_string += ") " + (data.modifier >= 0 ? " + " : " - ") + Math.abs(data.modifier);
+
+    roll_amount += data.modifier;
+
+    io.sockets.emit('dice_roll', {user: data.username, value: roll_amount, details: detail_string});
   });
 });
 
