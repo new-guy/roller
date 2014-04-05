@@ -10,7 +10,7 @@ function pageInit()
 var socket = io.connect('http://25.145.68.192:85');
 socket.on('news', function (data) 
 {
-	$("#messagecontainer").prepend("<p>Server MOTD: "+data.message+"</p>");
+	$("#message_container").prepend("<p>Server MOTD: "+data.message+"</p>");
 });
 
 socket.on('dice_roll', function (data)
@@ -19,7 +19,13 @@ socket.on('dice_roll', function (data)
 	html += (data.user == "" ? "SET YOUR USERNAME, FUCKER!" : data.user) + " rolled a " + data.value + "  ||  " + data.details;
 	html += "</p>";
 
-	$("#messagecontainer").prepend(html);
+	$("#message_container").prepend(html);
+
+	if($("#message_container").children("*").length > 20)
+	{
+		var temp_html = $("#message_container").children("*").slice(0,20);
+		$("#message_container").html(temp_html);
+	}
 });
 
 function sendRollRequest()
