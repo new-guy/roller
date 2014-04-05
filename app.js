@@ -1,3 +1,5 @@
+var motd = 'oi, fuk u m8';
+
 var app = require('http').createServer(handler)
    , io = require('socket.io').listen(app)
    , fs = require('fs')
@@ -21,15 +23,17 @@ function handler (req, res)
 
 io.sockets.on('connection', function (socket) 
 {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) 
-  {
-    console.log(data);
-  });
+  socket.emit('news', { message: motd });
 
-  socket.on('button', function (data)
+  socket.on('roll_request', function (data)
   {
-    console.log('button!');
-    io.sockets.emit('button_response', { user: data.username});
+    var roll_amount = getRandomInt(1, 6);
+
+    io.sockets.emit('dice_roll', {user: data.username, value: roll_amount});
   });
 });
+
+function getRandomInt(min, max)
+{
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
