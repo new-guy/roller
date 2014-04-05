@@ -27,6 +27,8 @@ io.sockets.on('connection', function (socket)
 
   socket.on('roll_request', function (data)
   {
+    socket.set('username', data.username);
+
     var detail_string = "(";
     var roll_amount = 0;
 
@@ -37,6 +39,10 @@ io.sockets.on('connection', function (socket)
       if(c != 0) detail_string += " + " + current_roll;
       else detail_string += current_roll;
     }
+
+    socket.get('username', function(err, ret){
+       console.log("Socket " + ret + " is here");
+    });
 
     detail_string += ") " + (data.modifier >= 0 ? " + " : " - ") + Math.abs(data.modifier);
 
