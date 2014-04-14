@@ -15,7 +15,10 @@ socket.on('news', function (data)
 
 socket.on('dice_roll', function (data)
 {
-	var html = "<p>"
+	var d = new Date();
+	var timeString = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+
+	var html = "<p>" + timeString  + " || ";
 	html += (data.user == "" ? "SET YOUR USERNAME, FUCKER!" : data.user) + " rolled a " + data.value + "  ||  " + data.details;
 	html += "</p>";
 
